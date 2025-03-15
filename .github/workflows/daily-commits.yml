@@ -2,7 +2,7 @@ name: Daily Commits
 
 on:
   schedule:
-    - cron: '17 11 * * *'  # Runs at 21:17 AET (11:17 UTC) every day
+    - cron: '20 10 * * *'  # Runs at 21:17 AET (11:17 UTC) every day
   workflow_dispatch:  # Allows manual trigger
 
 jobs:
