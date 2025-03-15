@@ -23,9 +23,15 @@ def make_commit(message):
     subprocess.run(['git', 'push'])
 
 def main():
-    # Configure git
-    subprocess.run(['git', 'config', '--global', 'user.email', 'github-actions@github.com'])
-    subprocess.run(['git', 'config', '--global', 'user.name', 'GitHub Actions Bot'])
+    # Configure git with GitHub email and name from environment variables
+    git_email = os.environ.get('GIT_EMAIL')
+    git_name = os.environ.get('GIT_NAME')
+    
+    if not git_email or not git_name:
+        raise ValueError("GIT_EMAIL and GIT_NAME environment variables must be set")
+    
+    subprocess.run(['git', 'config', '--global', 'user.email', git_email])
+    subprocess.run(['git', 'config', '--global', 'user.name', git_name])
     
     # Create 5 commits
     for i in range(5):

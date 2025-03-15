@@ -27,4 +27,6 @@ jobs:
     - name: Run commit script
       env:
         GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
+        GIT_EMAIL: ${{ secrets.GIT_EMAIL }}
+        GIT_NAME: ${{ secrets.GIT_NAME }}
       run: python commit_script.py 
