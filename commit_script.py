@@ -18,21 +18,21 @@ def create_random_change():
 
 def make_commit(message):
     """Make a commit with the given message."""
-    subprocess.run(['git', 'add', 'random_changes.txt'])
-    subprocess.run(['git', 'commit', '-m', message])
-    subprocess.run(['git', 'push'])
-
-def main():
-    # Configure git with GitHub email and name from environment variables
     git_email = os.environ.get('GIT_EMAIL')
     git_name = os.environ.get('GIT_NAME')
     
-    if not git_email or not git_name:
-        raise ValueError("GIT_EMAIL and GIT_NAME environment variables must be set")
-    
-    subprocess.run(['git', 'config', '--global', 'user.email', git_email])
-    subprocess.run(['git', 'config', '--global', 'user.name', git_name])
-    
+    subprocess.run(['git', 'add', 'random_changes.txt'])
+    subprocess.run([
+        'git', 
+        '-c', f'user.name={git_name}',
+        '-c', f'user.email={git_email}',
+        'commit',
+        '--author', f'{git_name} <{git_email}>',
+        '-m', message
+    ])
+    subprocess.run(['git', 'push'])
+
+def main():
     # Create 5 commits
     for i in range(5):
         create_random_change()
